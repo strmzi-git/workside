@@ -1,0 +1,74 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  favouriteIds   String[]  @db.ObjectId
+
+  accounts Account[]
+  // Listins this user has applied for
+  jobListingIDs String[] @db.ObjectId
+  appliedJobListings JobListing[] @relation(fields: [jobListingIDs], references: [id], "JobListingApplications")
+
+  JobListing JobListing[]
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  sessions_state    String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId]) // Unique combination 
+}
+
+model JobListing {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  description      String
+  companyImg       String
+  createdAt        DateTime @default(now())
+  educationLevel   String
+  location         String
+  companyName      String
+  userId           String   @db.ObjectId
+  type             String
+  totalPay         Int
+  level            String
+  requirements     String[]
+  employmentStatus String
+  keywords         String[]
+
+  // Array of applications (users)
+  userIDs String[] @db.ObjectId
+  applicants User[] @relation(fields: [userIDs], references: [id], "JobListingApplications")
+
+  // Creator of the job listing
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
