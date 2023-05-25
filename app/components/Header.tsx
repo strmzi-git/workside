@@ -1,8 +1,12 @@
 import Image from "next/image";
+import Button from "./Button";
+import { signIn } from "next-auth/react";
+import getCurrentUser from "../actions/getCurrentUser";
 
-const Header = function () {
+const Header = async function () {
+  const currentUser = await getCurrentUser();
   return (
-    <div className="w-content flex items-center justify-between h-[50px] border-2 relative">
+    <div className="w-content flex items-center justify-between h-[50px]  relative">
       <div className="">
         <Image
           src={"Assets/WorksideLogo.svg"}
@@ -23,20 +27,29 @@ const Header = function () {
         </p>
       </div>
       <div className="flex items-center gap-4">
-        <Image
-          src={"Assets/Avatar.svg"}
-          alt="Profile Picture"
-          width={30}
-          height={30}
-        />
         <div className="flex items-center gap-3 cursor-pointer">
-          <p className="text-myGray text-sm">Olivia Benjamin</p>
-          <Image
-            src={"Assets/DownArrow.svg"}
-            alt="Down arrow"
-            width={10}
-            height={10}
-          />
+          {currentUser ? (
+            <>
+              <Image
+                src={currentUser.user?.image || "Assets/Avatar.svg"}
+                className="rounded-full"
+                alt="Profile Picture"
+                width={30}
+                height={30}
+              />
+              <p className="text-myGray text-sm">{currentUser.user?.name}</p>
+              <Image
+                src={"Assets/DownArrow.svg"}
+                alt="Down arrow"
+                width={10}
+                height={10}
+              />
+            </>
+          ) : (
+            <>
+              <Button label="Log in" auth />
+            </>
+          )}
         </div>
       </div>
     </div>
