@@ -3,7 +3,6 @@ import { signIn } from "next-auth/react";
 import { IconType } from "react-icons";
 
 interface ButtonProps {
-  auth?: boolean;
   icon?: IconType;
   disabled?: boolean;
   label: string;
@@ -18,7 +17,7 @@ interface ButtonProps {
 const Button: React.FC<ButtonProps> = function ({
   label,
   functionality,
-  auth,
+
   outline,
   custom,
   icon: Icon,
@@ -30,7 +29,7 @@ const Button: React.FC<ButtonProps> = function ({
     <>
       <button
         disabled={disabled}
-        onClick={auth ? () => signIn("github") : functionality}
+        onClick={functionality}
         className={`py-2 px-4 rounded-md text-md flex justify-center relative items-center text-white
         ${!custom ? (full ? "w-full" : "w-[50%]") : `w-[${custom}]`} 
           }
