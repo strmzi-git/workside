@@ -1,6 +1,7 @@
 "use client";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import Modal from "./Modal";
+import { useRouter } from "next/navigation";
 import {
   FieldValue,
   FieldValues,
@@ -17,6 +18,7 @@ import axios from "axios";
 const LoginModal = function () {
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const defaultValues: any = {
     email: "",
@@ -46,6 +48,7 @@ const LoginModal = function () {
       })
       .finally(() => {
         setIsLoading(false);
+        router.refresh();
       });
   };
 
@@ -60,6 +63,7 @@ const LoginModal = function () {
         toast.error("Invalid login credentials provided...");
       }
       setIsLoading(false);
+      router.refresh();
     });
   };
   const onSubmit: SubmitHandler<FieldValues> = (data) => {

@@ -33,14 +33,16 @@ export const authOptions: AuthOptions = {
         const currentUser = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
+
         if (!currentUser) {
           throw new Error("Invalid credentials provided");
         }
 
         const truthyPassword = await bcrypt.compare(
-          currentUser.hashedPassword!,
-          credentials.password
+          credentials.password,
+          currentUser.hashedPassword!
         );
+
         if (!truthyPassword) {
           throw new Error("Invalid credentials provided");
         }

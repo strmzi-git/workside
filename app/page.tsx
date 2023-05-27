@@ -6,6 +6,7 @@ import LoginModal from "./components/modals/LoginModal";
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
+
   return (
     <div>
       <ToasterProvider />
