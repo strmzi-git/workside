@@ -2,6 +2,7 @@
 import useLoginModal from "@/app/hooks/useLoginModal";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
+import { AiFillGithub } from "react-icons/ai";
 import {
   FieldValue,
   FieldValues,
@@ -14,6 +15,7 @@ import { useCallback, useMemo, useState } from "react";
 import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import AuthButtons from "../AuthButtons";
 
 const LoginModal = function () {
   const loginModal = useLoginModal();
@@ -134,6 +136,12 @@ const LoginModal = function () {
           </>
         )}
       </p>
+      <div className="my-2 flex items-center justify-between gap-4">
+        <div className="border-t-2 opacity-50 h-[1px] w-[43%] "></div>
+        <p>OR</p>
+        <div className="border-t-2 opacity-50 h-[1px] w-[43%]"></div>
+      </div>
+      <AuthButtons />
     </div>
   );
   useMemo(() => {

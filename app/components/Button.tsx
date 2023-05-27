@@ -10,6 +10,7 @@ interface ButtonProps {
   custom?: string;
   outline?: boolean;
   large?: boolean;
+
   full?: boolean;
   functionality?: () => void;
 }

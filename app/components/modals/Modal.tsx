@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = function ({
       className={`absolute top-0 left-0 h-[100%] w-[100%] bg-myBlack bg-opacity-60 z-40 flex items-center justify-center`}
     >
       <div
-        className={`bg-white duration-300 transition h-auto max-h-[480px] overflow-y-scroll w-[80%] z-50 sm:w-4/6 md:w-3/6 xl:w-2/6 rounded-lg overflow-hidden p-4 ${
+        className={`bg-white duration-300 transition h-auto max-h-[590px] overflow-y-scroll w-[80%] z-50 sm:w-4/6 md:w-3/6 xl:w-2/6 rounded-lg overflow-hidden p-4 ${
           isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full"
         }`}
       >

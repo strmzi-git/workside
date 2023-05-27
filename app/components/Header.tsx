@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import useLoginModal from "../hooks/useLoginModal";
+import { useState } from "react";
+import { signOut } from "next-auth/react";
 
 interface HeaderProps {
   currentUser: any;
@@ -8,6 +10,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = function ({ currentUser }) {
   const loginModal = useLoginModal();
+  const [showLogout, setShowLogout] = useState(false);
 
   return (
     <div className="w-content flex items-center justify-between h-[50px]  relative">
@@ -30,11 +33,16 @@ const Header: React.FC<HeaderProps> = function ({ currentUser }) {
           Buy me a coffee
         </p>
       </div>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 relative ">
         <div
           onClick={() => {
-            if (loginModal.isOpen) return loginModal.closeModal();
-            loginModal.openModal();
+            if (!currentUser) {
+              if (loginModal.isOpen) return loginModal.closeModal();
+              loginModal.openModal();
+            } else {
+              if (showLogout) return setShowLogout(false);
+              setShowLogout(true);
+            }
           }}
           className="flex items-center gap-3 cursor-pointer"
         >
@@ -52,12 +60,22 @@ const Header: React.FC<HeaderProps> = function ({ currentUser }) {
             src={"Assets/DownArrow.svg"}
             alt="Down arrow"
             className={` transform duration-300 ${
-              loginModal.isOpen ? "" : "-rotate-90"
+              loginModal.isOpen || showLogout ? "" : "-rotate-90"
             }`}
             width={10}
             height={10}
           />
-        </div>
+        </div>{" "}
+        {showLogout && (
+          <div
+            onClick={() => {
+              signOut();
+            }}
+            className=" cursor-pointer absolute h-auto w-[100%] right-0 top-10 bg-myGray text-white p-2 text-center rounded-md shadow-md"
+          >
+            Logout
+          </div>
+        )}
       </div>
     </div>
   );
