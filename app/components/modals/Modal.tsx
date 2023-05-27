@@ -1,0 +1,57 @@
+"use client";
+
+import useLoginModal from "@/app/hooks/useLoginModal";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { RxCross1 } from "react-icons/rx";
+interface ModalProps {
+  bodyContent?: JSX.Element;
+  title: string;
+  subtitle: string;
+}
+
+const Modal: React.FC<ModalProps> = function ({
+  bodyContent,
+  title,
+  subtitle,
+}) {
+  const loginModal = useLoginModal();
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    setIsOpen(loginModal.isOpen);
+  }, [loginModal.isOpen]);
+
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    setTimeout(() => {
+      loginModal.closeModal();
+    }, 300);
+  }, []);
+
+  return (
+    <div
+      className={`absolute top-0 left-0 h-[100%] w-[100%] bg-myBlack bg-opacity-60 z-40 flex items-center justify-center`}
+    >
+      <div
+        className={`bg-white duration-300 transition h-auto max-h-[480px] overflow-y-scroll w-[80%] z-50 sm:w-4/6 md:w-3/6 xl:w-2/6 rounded-lg overflow-hidden p-4 ${
+          isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full"
+        }`}
+      >
+        {/* HEADER */}
+        <div className="h-[75px] bg-white w-full text-center pb-0 relative">
+          <RxCross1
+            size={20}
+            className="absolute top-2 left-4 cursor-pointer"
+            onClick={handleClose}
+          />
+          <p className="text-3xl font-normal mb-1">{title}</p>
+          <p className="text-md font-light text-myGray">{subtitle}</p>
+        </div>
+        <hr />
+        {/* BODY CONTENT */}
+        <div className="p-4">{bodyContent}</div>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;
