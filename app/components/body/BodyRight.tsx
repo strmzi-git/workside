@@ -3,7 +3,7 @@ import Button from "../Button";
 
 const BodyRight = function () {
   return (
-    <div className="flex-1 max-h-[600px] flex flex-col gap-3 text-white items-end bg-myDarkBlue rounded-md py-8 px-10">
+    <div className="flex-1 max-h-[600px] overflow-y-scroll min-w-min min-h-fit flex flex-col gap-3 text-white items-end bg-myDarkBlue rounded-md py-8 px-10">
       {/* Header */}
       <div className="flex w-full items-start justify-between h-[50px] mb-4">
         <div>
@@ -15,18 +15,26 @@ const BodyRight = function () {
         <p className="text-sm text-myGray font-light">Posted 4 days ago</p>
       </div>
       {/*  */}
-      <div className="w-full bg-myBlack items-center mb-4 rounded-md h-[75px] justify-between flex px-6">
+      <div
+        className={`w-full bg-myBlack items-center mb-4 rounded-md h-[75px] text-[12px] 2md:text-[14px] py-2 min-w-[300px] justify-between flex px-6`}
+      >
         <div className="flex flex-col items-start">
           <p className="font-semibold text-md">Experience</p>
-          <p className="text-sm font-light text-myGray">Beginner</p>
+          <p className="text-[10px] 2md:text-[12px] font-light text-myGray">
+            Beginner
+          </p>
         </div>
         <div className="flex flex-col items-start">
           <p className="font-semibold text-md">Education Level</p>
-          <p className="text-sm font-light text-myGray">Bachelor</p>
+          <p className="text-[10px] 2md:text-[12px] font-light text-myGray">
+            Bachelor
+          </p>
         </div>
         <div className="flex flex-col items-start">
           <p className="font-semibold text-md">Salary Range</p>
-          <p className="text-sm font-light text-myGray">110€-150€/hr</p>
+          <p className="text-[10px] 2md:text-[12px] font-light text-myGray">
+            110€-150€/hr
+          </p>
         </div>
       </div>
       {/*  */}
