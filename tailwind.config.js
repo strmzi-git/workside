@@ -14,6 +14,9 @@ module.exports = {
         myGray: "#8F9BB3",
       },
     },
+    transitionProperty: {
+      height: "height",
+    },
     screens: {
       "3xs": "375px",
       xxs: "515px",
