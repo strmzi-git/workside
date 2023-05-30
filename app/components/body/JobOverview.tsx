@@ -60,16 +60,16 @@ const JobOverview = function () {
         </div>
         {/* {windowSize.width >= 377 && ( */}
         <div className="flex flex-wrap">
-          <div className="mr-2 mb-1 p-1 rounded-sm inline-block bg-myBlack text-white font-thin text-sm">
+          <div className="mr-2 mb-1 p-[5.5px] rounded-sm inline-block bg-myBlack text-white font-thin text-sm">
             Full-stack
           </div>
-          <div className="p-1 mr-2 mb-1 inline-block bg-myBlack text-white font-thin text-sm">
+          <div className="p-[5.5px] mr-2 mb-1 inline-block bg-myBlack text-white font-thin text-sm">
             Webdev
           </div>
-          <div className="p-1 mb-1 mr-2 inline-block bg-myBlack text-white font-thin text-sm">
+          <div className="p-[5.5px] mb-1 mr-2 inline-block bg-myBlack text-white font-thin text-sm">
             Machine Learning
           </div>
-          <div className="p-1 mb-1 mr-2 inline-block bg-myBlack text-white font-thin text-sm">
+          <div className="p-[5.5px] mb-1 mr-2 inline-block bg-myBlack text-white font-thin text-sm">
             Graphic Design
           </div>
         </div>

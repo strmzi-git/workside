@@ -11,3 +11,12 @@
 body {
   background-color: #15192a;
 }
+
+.container-snap::-webkit-scrollbar {
+  display: none;
+}
+
+.container-snap {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

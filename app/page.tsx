@@ -4,6 +4,7 @@ import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import Header from "./components/Header";
 import BodyContent from "./components/body/BodyContent";
+import JobModal from "./components/modals/JobModal";
 import LoginModal from "./components/modals/LoginModal";
 
 export default async function Home() {
@@ -13,6 +14,7 @@ export default async function Home() {
     <div className="min-h-screen">
       <ToasterProvider />
       <LoginModal />
+      <JobModal />
       <Container>
         <ClientOnly>
           <Header currentUser={currentUser} />

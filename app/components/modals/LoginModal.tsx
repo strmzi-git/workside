@@ -144,14 +144,16 @@ const LoginModal = function () {
       <AuthButtons />
     </div>
   );
-  useMemo(() => {
-    console.log(loginModal.isOpen);
-  }, [loginModal.isOpen]);
-  if (!loginModal.isOpen) {
-    return null;
-  }
+  // useMemo(() => {
+  //   console.log(loginModal.isOpen);
+  // }, [loginModal.isOpen]);
+  // if (!loginModal.isOpen) {
+  //   return null;
+  // }
   return (
     <Modal
+      modalIsOpen={loginModal.isOpen}
+      onClose={loginModal.closeModal}
       title={loginModal.showSignUp ? "Sign up!" : "Log in!"}
       subtitle={`Welcome${
         loginModal.showSignUp ? ", sign up" : " back, log in"

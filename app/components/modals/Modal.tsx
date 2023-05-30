@@ -8,12 +8,18 @@ interface ModalProps {
   bodyContent?: JSX.Element;
   title: string;
   subtitle: string;
+  onClose: () => void;
+  modalIsOpen: boolean;
+  footer?: JSX.Element;
 }
 
 const Modal: React.FC<ModalProps> = function ({
   bodyContent,
   title,
+  onClose,
   subtitle,
+  modalIsOpen,
+  footer,
 }) {
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
@@ -21,16 +27,16 @@ const Modal: React.FC<ModalProps> = function ({
   const smallScreen = useMediaQuery({ minWidth: 450 });
 
   useEffect(() => {
-    setIsOpen(loginModal.isOpen);
+    setIsOpen(modalIsOpen);
   }, [loginModal.isOpen]);
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
     setTimeout(() => {
-      loginModal.closeModal();
+      onClose();
     }, 300);
   }, []);
-
+  if (!modalIsOpen) return null;
   return (
     <div
       className={`absolute top-0 left-0 h-[100%] w-[100%] bg-myBlack bg-opacity-60 z-40 flex items-center justify-center`}
@@ -55,6 +61,13 @@ const Modal: React.FC<ModalProps> = function ({
         <hr />
         {/* BODY CONTENT */}
         <div className="p-4">{bodyContent}</div>
+        {footer && (
+          <>
+            {" "}
+            <hr />
+            <div className="p-4">{footer}</div>
+          </>
+        )}
       </div>
     </div>
   );

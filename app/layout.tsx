@@ -1,3 +1,5 @@
+import ClientOnly from "./components/ClientOnly";
+import Header from "./components/Header";
 import "./globals.css";
 <link rel="icon" href="/favicon.ico" sizes="any" />;
 

@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = function ({
         {...register(id, { required: true })}
         placeholder=" "
         className={`w-full outline-none hover:outline-none rounded-md  focus:border-black border-2 text-md s h-[100%] duration-300 px-4 py-2 pt-3 text-myDarkBlue peer 
-        ${errors[id] ? "border-rose-400" : "border-neutral-400"}`}
+        ${errors[id] ? "border-rose-400" : "border-neutral-300"}`}
       />
       <label
         className={`absolute peer-focus:text-myDarkBlue duration-300 transition transform top-1 left-[19px] text-sm peer-placeholder-shown:translate-y-[14px] peer-placeholder-shown:scale-[1.2] origin-[0] peer-focus:translate-y-[1px] peer-focus:scale-[0.8]

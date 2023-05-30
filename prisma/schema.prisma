@@ -1,6 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -51,16 +52,15 @@ model Account {
 model JobListing {
   id               String   @id @default(auto()) @map("_id") @db.ObjectId
   title            String
-  description      String
+  companyOverview  String
   companyImg       String
   createdAt        DateTime @default(now())
   educationLevel   String
   location         String
   companyName      String
   userId           String   @db.ObjectId
-  type             String
   totalPay         Int
-  level            String
+  experience       String
   requirements     String[]
   employmentStatus String
   keywords         String[]
