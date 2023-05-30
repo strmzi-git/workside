@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Button from "../Button";
 import BodyRightContent from "./BodyRightContent";
 
 const BodyRight = function () {

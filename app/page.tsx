@@ -1,5 +1,6 @@
 import ToasterProvider from "./ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
+import ClientOnly from "./components/ClientOnly";
 import Container from "./components/Container";
 import Header from "./components/Header";
 import BodyContent from "./components/body/BodyContent";
@@ -13,8 +14,11 @@ export default async function Home() {
       <ToasterProvider />
       <LoginModal />
       <Container>
-        <Header currentUser={currentUser} />
-        <BodyContent />
+        <ClientOnly>
+          <Header currentUser={currentUser} />
+
+          <BodyContent />
+        </ClientOnly>
       </Container>
     </div>
   );

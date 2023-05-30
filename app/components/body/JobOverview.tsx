@@ -1,25 +1,16 @@
+"use client";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BsArrowDownShort } from "react-icons/bs";
 
 import { MapPin } from "react-feather";
 import BodyRightContent from "./BodyRightContent";
+import MediaQuery, { useMediaQuery } from "react-responsive";
 const JobOverview = function () {
   const [displayDetails, setDisplayDetails] = useState(false);
   const [hovering, setHovering] = useState(false);
-  const [windowSize, setWindowSize] = useState({ width: window.innerWidth });
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowSize({ width: window.innerWidth });
-    }
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const windowSize = useMediaQuery({ minWidth: 1400 });
+  // console.log("Windowsize:", windowSize);
   return (
     <div
       className={`relative duration-300 border-b-2 border-b-transparent ${
@@ -28,7 +19,7 @@ const JobOverview = function () {
     >
       <div
         className={`rounded-lg w-auto bg-myDarkBlue h-auto p-4 pb-2 ${
-          windowSize.width <= 719 && "rounded-b-none overflow-hidden"
+          !windowSize && "rounded-b-none overflow-hidden"
         }
       `}
       >
@@ -82,7 +73,7 @@ const JobOverview = function () {
             Graphic Design
           </div>
         </div>
-        {windowSize.width <= 719 && (
+        <MediaQuery maxWidth={719}>
           <div
             onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => setHovering(false)}
@@ -93,20 +84,22 @@ const JobOverview = function () {
           >
             Discover <BsArrowDownShort />
           </div>
-        )}
+        </MediaQuery>
 
         {/* )} */}
       </div>
-      {windowSize.width <= 719 && (
+      <MediaQuery maxWidth={719}>
         <div
-          className={` 
-          ${!displayDetails ? "h-0" : "h-[500px]"} w-full
+          className={`
+          ${
+            !displayDetails ? "h-0 opacity-0" : "h-[500px] py-4 opacity-100"
+          } w-full
         transition duration-1000 cursor-pointer
-        rounded-b-none bg-myDarkBlue bg-opacity-20 text-white overflow-hidden`}
+        rounded-b-none bg-myLightBlue bg-opacity-80  text-white overflow-hidden`}
         >
-          {displayDetails && <BodyRightContent />}
+          <BodyRightContent />
         </div>
-      )}
+      </MediaQuery>
     </div>
   );
 };

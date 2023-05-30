@@ -3,6 +3,7 @@
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
+import { useMediaQuery } from "react-responsive";
 interface ModalProps {
   bodyContent?: JSX.Element;
   title: string;
@@ -16,6 +17,9 @@ const Modal: React.FC<ModalProps> = function ({
 }) {
   const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
+
+  const smallScreen = useMediaQuery({ minWidth: 450 });
+
   useEffect(() => {
     setIsOpen(loginModal.isOpen);
   }, [loginModal.isOpen]);
@@ -32,7 +36,9 @@ const Modal: React.FC<ModalProps> = function ({
       className={`absolute top-0 left-0 h-[100%] w-[100%] bg-myBlack bg-opacity-60 z-40 flex items-center justify-center`}
     >
       <div
-        className={`bg-white duration-300 transition h-auto max-h-[590px] overflow-y-scroll w-[80%] z-50 sm:w-4/6 md:w-3/6 xl:w-2/6 rounded-lg overflow-hidden p-4 ${
+        className={`bg-white duration-300 transition h-auto max-h-[590px] overflow-y-scroll w-[80%] z-50 3xs:w-5/6 sm:w-4/6 md:w-3/6 xl:w-2/6 rounded-lg overflow-hidden py-4 ${
+          smallScreen ? "px-4" : "px-0"
+        } ${
           isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-full"
         }`}
       >
