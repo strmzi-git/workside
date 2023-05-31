@@ -14,7 +14,7 @@ const ImagePage: React.FC<ImagePageProps> = function ({
       <ImageUploader
         value={companyImg}
         onChange={(value) => {
-          //   setCustomFormValue("companyImg", value);
+          setValue("companyImg", value);
         }}
       />
     </div>

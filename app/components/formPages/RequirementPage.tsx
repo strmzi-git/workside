@@ -10,7 +10,6 @@ interface RequirementPageProps {
   onChange: (value: string, id: string) => void;
   errors: FieldErrors;
   iconFunctionality: (id: string) => void;
-  addFormReq: () => void;
 }
 
 const RequirementPage: React.FC<RequirementPageProps> = function ({
@@ -19,11 +18,11 @@ const RequirementPage: React.FC<RequirementPageProps> = function ({
   register,
   onChange,
   errors,
-  addFormReq,
+
   iconFunctionality,
 }) {
   return (
-    <div id="jobRequirements" className="max-h-[200px] overflow-scroll">
+    <div id="jobRequirements" className="max-h-[350px] overflow-scroll">
       {requirements.map((identifier) => {
         return (
           <Input
@@ -44,7 +43,6 @@ const RequirementPage: React.FC<RequirementPageProps> = function ({
       <div
         onClick={() => {
           newRequirementField();
-          addFormReq();
         }}
         className={`w-full flex items-center justify-center border py-1 bg-myLightBlue opacity-70 duration-300 hover:opacity-80 cursor-pointer rounded-md ${
           requirements.length !== 0 && "-mt-[10px]"
