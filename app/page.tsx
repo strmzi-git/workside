@@ -18,7 +18,6 @@ export default async function Home() {
       <Container>
         <ClientOnly>
           <Header currentUser={currentUser} />
-
           <BodyContent />
         </ClientOnly>
       </Container>
