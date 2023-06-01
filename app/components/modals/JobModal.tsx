@@ -9,6 +9,8 @@ import RequirementPage from "../formPages/RequirementPage";
 import JobInfo from "../formPages/JobInfo";
 import BasicInfo from "../formPages/BasicInfo";
 import ImagePage from "../formPages/Image";
+import ExtraInfo from "../formPages/ExtraInfo";
+import axios from "axios";
 enum FORM_STEP {
   BASIC_INFO = 0,
   IMAGE = 1,
@@ -20,9 +22,7 @@ enum FORM_STEP {
 const JobModal = function () {
   const jobModal = useJobModal();
   const [formPage, setFormPage] = useState(0);
-  // const [requirements, setRequirements] = useState<
-  //   { value: string; identifier: string }[]
-  // >([]);
+
   const {
     reset,
     handleSubmit,
@@ -35,31 +35,44 @@ const JobModal = function () {
     defaultValues: {
       companyName: "",
       title: "",
+      location: "",
       companyOverview: "",
+      companyImg: "",
       experience: "Beginner" || "Intermediate" || "Advanced" || "Expert",
       educationLevel: "Highschool" || "Bachelor" || "Master" || "PhD",
-      companyImg: "",
       requirements: [],
+      keywords: "",
+      employmentStatus: "Internship" || "Part-time" || "Full-time",
     },
   });
-
+  const companyName = watch("companyName");
+  const title = watch("title");
+  const location = watch("location");
+  const companyOverview = watch("companyOverview");
   const companyImg = watch("companyImg");
   const experience = watch("experience");
   const educationLevel = watch("educationLevel");
   const requirements = watch("requirements");
+  const employmentStatus = watch("employmentStatus");
 
   const setCustomFormValue = (id: string, value: any) => {
-    setValue(id, value);
+    setValue(id, value, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
   };
 
-  const onSubmit: SubmitHandler<FieldValues> = function (data) {};
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log("------------- FORM SUBMITTED -------------");
+    console.log(data);
+  };
 
   const handleNext = () => {
-    console.log(formPage);
     if (formPage !== FORM_STEP.EXTRA_INFO) {
       setFormPage(formPage + 1);
     } else {
-      handleSubmit(onSubmit);
+      handleSubmit(onSubmit)();
     }
   };
 
@@ -79,21 +92,24 @@ const JobModal = function () {
     setCustomFormValue(educationLevel, radioValue);
   };
 
+  const handleEmploymentChange = (data: any) => {
+    const radioValue = data.target.getAttribute("value");
+    setCustomFormValue(employmentStatus, radioValue);
+  };
+
   const removeRequirementField = function (id: string) {
     const newReqs = requirements.filter((req: any) => req.identifier !== id);
 
     setCustomFormValue("requirements", newReqs);
-    // setRequirements(newReqs);
   };
 
   const newRequirementField = () => {
     const randomIdentifier = Math.random().toString();
     const newInput = { identifier: randomIdentifier, value: "" };
     setCustomFormValue("requirements", [...requirements, newInput]);
-    // setRequirements((reqs) => [...reqs, newInput]);
   };
 
-  const handleInputChange = (value: string, id: string) => {
+  const handleInputChange = (id: string, value: string) => {
     const index = requirements.findIndex(
       (input: any) => input.identifier === id
     );
@@ -102,8 +118,8 @@ const JobModal = function () {
     const newFocusReq = requirements[index];
     newFocusReq.value = value;
     newRequirements[index] = newFocusReq;
+
     setCustomFormValue("requirements", newRequirements);
-    // setRequirements(newRequirements);
   };
 
   let footer = (
@@ -130,7 +146,13 @@ const JobModal = function () {
         onClose={jobModal.closeModal}
         title="Job Posting"
         subtitle="Create a new job listing!"
-        bodyContent={<BasicInfo register={register} errors={errors} />}
+        bodyContent={
+          <BasicInfo
+            handleFormChange={setCustomFormValue}
+            register={register}
+            errors={errors}
+          />
+        }
         footer={footer}
       />
     );
@@ -143,7 +165,11 @@ const JobModal = function () {
         title="Job Posting"
         subtitle="Create a new job listing!"
         bodyContent={
-          <ImagePage companyImg={companyImg} setValue={setCustomFormValue} />
+          <ImagePage
+            register={register}
+            companyImg={companyImg}
+            setValue={setCustomFormValue}
+          />
         }
         footer={footer}
       />
@@ -158,8 +184,9 @@ const JobModal = function () {
         subtitle="Create a new job listing!"
         bodyContent={
           <JobInfo
-            handleEducationChange={handleEducationChange}
-            handleExperienceChange={handleExperienceChange}
+            setValue={setCustomFormValue}
+            // handleEducationChange={handleEducationChange}
+            // handleExperienceChange={handleExperienceChange}
           />
         }
         footer={footer}
@@ -181,6 +208,25 @@ const JobModal = function () {
             errors={errors}
             requirements={requirements}
             newRequirementField={newRequirementField}
+          />
+        }
+        footer={footer}
+      />
+    );
+  }
+
+  if (formPage === FORM_STEP.EXTRA_INFO) {
+    return (
+      <Modal
+        modalIsOpen={jobModal.isOpen}
+        onClose={jobModal.closeModal}
+        title="Job Posting"
+        subtitle="Create a new job listing!"
+        bodyContent={
+          <ExtraInfo
+            register={register}
+            errors={errors}
+            setValue={setCustomFormValue}
           />
         }
         footer={footer}

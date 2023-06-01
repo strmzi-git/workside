@@ -18,7 +18,6 @@ const RequirementPage: React.FC<RequirementPageProps> = function ({
   register,
   onChange,
   errors,
-
   iconFunctionality,
 }) {
   return (
@@ -32,9 +31,10 @@ const RequirementPage: React.FC<RequirementPageProps> = function ({
             onChange={onChange}
             value={identifier.value}
             label="Requirement"
-            id="requirement"
+            id="requirements"
             iconFunctionality={iconFunctionality}
             register={register}
+            sendIdentifier={true}
             errors={errors}
             type="text"
           />

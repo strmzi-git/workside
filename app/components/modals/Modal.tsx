@@ -2,6 +2,7 @@
 
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 import { RxCross1 } from "react-icons/rx";
 import { useMediaQuery } from "react-responsive";
 interface ModalProps {
@@ -21,14 +22,13 @@ const Modal: React.FC<ModalProps> = function ({
   modalIsOpen,
   footer,
 }) {
-  const loginModal = useLoginModal();
   const [isOpen, setIsOpen] = useState(false);
 
   const smallScreen = useMediaQuery({ minWidth: 450 });
 
   useEffect(() => {
     setIsOpen(modalIsOpen);
-  }, [loginModal.isOpen]);
+  }, [modalIsOpen]);
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
@@ -37,6 +37,7 @@ const Modal: React.FC<ModalProps> = function ({
     }, 300);
   }, []);
   if (!modalIsOpen) return null;
+
   return (
     <div
       className={`absolute top-0 left-0 h-[100%] w-[100%] bg-myBlack bg-opacity-60 z-40 flex items-center justify-center`}

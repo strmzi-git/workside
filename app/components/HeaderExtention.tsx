@@ -1,3 +1,5 @@
+import useJobModal from "../hooks/useJobModal";
+
 interface HeaderExtentionProps {
   shouldShow?: boolean;
   alternative?: boolean;
@@ -7,6 +9,7 @@ const HeaderExtention: React.FC<HeaderExtentionProps> = function ({
   shouldShow,
   alternative,
 }) {
+  const jobModal = useJobModal();
   return (
     <div
       className={`
@@ -23,7 +26,10 @@ const HeaderExtention: React.FC<HeaderExtentionProps> = function ({
       <p className="pt-1 cursor-pointer ${alternative ? 'border-b-myLightBlue border-opacity-80' : 'border-b-myBlack'}  border-b-2 hover:border-b-myGray duration-300 transition">
         Find a job
       </p>
-      <p className="pt-1 cursor-pointer ${alternative ? 'border-b-myLightBlue border-opacity-80' : 'border-b-myBlack'}  border-b-2 hover:border-b-myGray duration-300 transition">
+      <p
+        onClick={() => jobModal.openModal()}
+        className="pt-1 cursor-pointer ${alternative ? 'border-b-myLightBlue border-opacity-80' : 'border-b-myBlack'}  border-b-2 hover:border-b-myGray duration-300 transition"
+      >
         Submit a job
       </p>
       <p className="pt-1 cursor-pointer ${alternative ? 'border-b-myLightBlue border-opacity-80' : 'border-b-myBlack'}  border-b-2 hover:border-b-myGray duration-300 transition">

@@ -20,6 +20,12 @@ const Filter = function () {
     Expert: false,
   };
 
+  const employmentType = {
+    PartTime: false,
+    FullTime: false,
+    Internship: false,
+  };
+
   const {
     register,
     watch,
@@ -30,6 +36,7 @@ const Filter = function () {
     defaultValues: {
       ...continents,
       ...level,
+      ...employmentType,
     },
   });
   // Continent
@@ -45,6 +52,10 @@ const Filter = function () {
   const Intermediate = watch("Intermediate");
   const Expert = watch("Expert");
 
+  const PartTime = watch("PartTime");
+  const FullTime = watch("FullTime");
+  const Internship = watch("Internship");
+
   const handleChange = (value: boolean, name: string) => {
     setValue(name, value, {
       shouldValidate: true,
@@ -54,7 +65,7 @@ const Filter = function () {
   };
 
   return (
-    <div className="flex flex-col gap-14 text-white ">
+    <div className="flex flex-col gap-6 text-white ">
       <div className="">
         <p className="text-lg font-bold ">Location</p>
         <div className="relative text-myGray">
@@ -69,10 +80,7 @@ const Filter = function () {
                     onChange={(e) => handleChange(e.target.checked, continent)}
                     sx={{
                       color: blue[200],
-
-                      "& .MuiSvgIcon-root": {
-                        fontSize: 24,
-                      },
+                      "& .MuiSvgIcon-root": { fontSize: 20 },
                       opacity: 0.2,
                       "&.Mui-checked": {
                         opacity: 0.8,
@@ -111,6 +119,35 @@ const Filter = function () {
                   />
                 }
                 label={level}
+              />
+            ))}
+          </FormGroup>
+        </div>
+      </div>
+      <div>
+        <p className="text-lg font-bold ">Status</p>
+        <div className="relative text-myGray">
+          <FormGroup>
+            {Object.keys(employmentType).map((type) => (
+              <FormControlLabel
+                key={type}
+                className="flex items-center gap-0 -mb-3 text-xs font-light"
+                control={
+                  <Checkbox
+                    {...register(type)}
+                    onChange={(e) => handleChange(e.target.checked, type)}
+                    sx={{
+                      color: blue[200],
+                      "& .MuiSvgIcon-root": { fontSize: 20 },
+                      opacity: 0.2,
+                      "&.Mui-checked": {
+                        opacity: 0.8,
+                        color: blue[600],
+                      },
+                    }}
+                  />
+                }
+                label={type}
               />
             ))}
           </FormGroup>

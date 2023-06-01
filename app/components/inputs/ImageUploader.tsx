@@ -1,15 +1,18 @@
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import { useCallback } from "react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 import { TbPhotoPlus } from "react-icons/tb";
 
 interface ImageUploaderProps {
   onChange: (value: string) => void;
   value: string;
+  register: UseFormRegister<FieldValues>;
 }
 const ImageUploader: React.FC<ImageUploaderProps> = function ({
   onChange,
   value,
+  register,
 }) {
   const handleUpload = useCallback(
     (result: any) => {

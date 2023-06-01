@@ -5,6 +5,7 @@ interface TextAreaProps {
   register: UseFormRegister<FieldValues>;
   required?: boolean;
   id: string;
+  onChange: (id: string, value: string) => void;
   errors: FieldErrors;
 }
 
@@ -13,6 +14,7 @@ const TextArea: React.FC<TextAreaProps> = function ({
   register,
   required,
   id,
+  onChange,
   errors,
 }) {
   return (
@@ -24,6 +26,7 @@ const TextArea: React.FC<TextAreaProps> = function ({
       <textarea
         placeholder=" "
         {...register(id, { required })}
+        onChange={(e) => onChange(id, e.target.value)}
         rows={4}
         className="focus:border-black container-snap text-myDarkBlue overflow-y-scroll w-full focus:outline-none peer"
       />

@@ -7,23 +7,21 @@ import {
 } from "@mui/material";
 
 interface JobInfoProps {
-  handleExperienceChange: (data: any) => void;
-  handleEducationChange: (data: any) => void;
+  setValue: (id: string, value: string) => void;
+  // handleExperienceChange: (data: any) => void;
+  // handleEducationChange: (data: any) => void;
 }
 
-const JobInfo: React.FC<JobInfoProps> = function ({
-  handleEducationChange,
-  handleExperienceChange,
-}) {
+const JobInfo: React.FC<JobInfoProps> = function ({ setValue }) {
   return (
     <FormControl>
       <FormLabel id="demo-radio-buttons-group-label">Experience</FormLabel>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="beginner"
         name="radio-buttons-group"
-        onChange={(data) => {
-          handleExperienceChange(data);
+        onChange={(data: any) => {
+          const value = data.target.getAttribute("value");
+          setValue("experience", value);
         }}
       >
         <FormControlLabel
@@ -48,10 +46,10 @@ const JobInfo: React.FC<JobInfoProps> = function ({
       </FormLabel>
       <RadioGroup
         aria-labelledby="demo-radio-buttons-group-label"
-        defaultValue="Bachelor"
         name="radio-buttons-group"
-        onChange={(data) => {
-          handleEducationChange(data);
+        onChange={(data: any) => {
+          const value = data.target.getAttribute("value");
+          setValue("educationLevel", value);
         }}
       >
         <FormControlLabel

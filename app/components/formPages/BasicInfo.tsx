@@ -5,23 +5,31 @@ import TextArea from "../inputs/TextArea";
 interface BasicInfoProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
+  handleFormChange: (id: string, value: string) => void;
 }
 
-const BasicInfo: React.FC<BasicInfoProps> = function ({ register, errors }) {
+const BasicInfo: React.FC<BasicInfoProps> = function ({
+  register,
+  errors,
+  handleFormChange,
+}) {
   return (
     <div>
       <Input
         label="Company Name"
         type="text"
-        id="companyname"
+        id="companyName"
+        onChange={handleFormChange}
         register={register}
         errors={errors}
       />
       <Input
         label="Job Title"
         type="text"
-        id="jobtitle"
+        identifier="title"
+        id="title"
         register={register}
+        onChange={handleFormChange}
         errors={errors}
       />
       <Input
@@ -30,11 +38,13 @@ const BasicInfo: React.FC<BasicInfoProps> = function ({ register, errors }) {
         id="location"
         register={register}
         errors={errors}
+        onChange={handleFormChange}
       />
       <TextArea
-        label="Company Name"
+        label="Company Overview"
         required
-        id="companyname"
+        id="companyOverview"
+        onChange={handleFormChange}
         register={register}
         errors={errors}
       />
